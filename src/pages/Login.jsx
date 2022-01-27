@@ -18,7 +18,10 @@ function Login() {
       setDisabled(true);
     }
   }, [password.length, email]);
-
+  const handleClick = () => {
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+  };
   return (
     <div>
       <input
@@ -45,6 +48,7 @@ function Login() {
         type="button"
         data-testid="login-submit-btn"
         disabled={ disabled }
+        onClick={ handleClick }
       >
         Enter
       </button>
