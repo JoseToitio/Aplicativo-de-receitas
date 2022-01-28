@@ -1,5 +1,8 @@
 import React from 'react';
+import Header from '../components/Header';
 
 export default function MainDrinks() {
-  return <div>Tela Principal de Bebidas</div>;
+  return (
+    <Header name="Drinks" showIcon />
+  );
 }

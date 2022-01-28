@@ -1,5 +1,8 @@
 import React from 'react';
+import Header from '../components/Header';
 
 export default function DoneRecipes() {
-  return <div>Receitas Feitas</div>;
+  return (
+    <Header name="Done Recipes" showIcon={ false } />
+  );
 }
