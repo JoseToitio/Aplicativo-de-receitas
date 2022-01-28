@@ -1,5 +1,8 @@
 import React from 'react';
+import Header from '../components/Header';
 
 export default function FavRecipes() {
-  return <div>Receitas favoritas</div>;
+  return (
+    <Header name="Favorite Recipes" showIcon={ false } />
+  );
 }

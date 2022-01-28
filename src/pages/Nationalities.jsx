@@ -1,5 +1,8 @@
 import React from 'react';
+import Header from '../components/Header';
 
 export default function Nationalities() {
-  return <div>explorar comida pro nacionalidade</div>;
+  return (
+    <Header name="Explore Nationalities" showIcon />
+  );
 }

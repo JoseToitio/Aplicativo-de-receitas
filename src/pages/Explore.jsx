@@ -1,5 +1,8 @@
 import React from 'react';
+import Header from '../components/Header';
 
 export default function Explore() {
-  return <div>Explorar</div>;
+  return (
+    <Header name="Explore" showIcon={ false } />
+  );
 }
