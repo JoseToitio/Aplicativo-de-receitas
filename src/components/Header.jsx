@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
-export default function Header({ name, showIcon }) {
+export default function Header({ name, showIcon, history }) {
   function showSearch() {
     return (
       <button src={ searchIcon } type="button" data-testid="search-top-btn">
@@ -18,7 +18,7 @@ export default function Header({ name, showIcon }) {
         type="button"
         data-testid="profile-top-btn"
         src={ profileIcon }
-        onClick={ () => console.log('clicou') }
+        onClick={ () => history.push('/profile') }
       >
         <img src={ profileIcon } alt="prof" />
       </button>
@@ -36,4 +36,5 @@ export default function Header({ name, showIcon }) {
 Header.propTypes = {
   showIcon: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
 };
