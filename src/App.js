@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
 import MainFoods from './pages/MainFoods';
 import MainDrinks from './pages/MainDrinks';
@@ -20,8 +20,9 @@ import DoneRecipes from './pages/DoneRecipes';
 import FavRecipes from './pages/FavRecipes';
 
 function App() {
+  const Url = 552;
   return (
-    <div>
+    <BrowserRouter>
       <Switch>
         <Route exact path="/" component={ Login } />
         <Route exact path="/foods" component={ MainFoods } />
@@ -40,7 +41,7 @@ function App() {
         <Route exact path="/done-recipes" component={ DoneRecipes } />
         <Route exact path="/favorite-recipes" component={ FavRecipes } />
       </Switch>
-    </div>
+    </BrowserRouter>
   );
 }
 
