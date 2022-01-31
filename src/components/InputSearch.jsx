@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import GlobalContext from '../context/GlobalContext';
 
 export default function InputSearch() {
+  const { radioSelect, setRadioSelect } = useContext(GlobalContext);
+
   return (
     <div className="flex-col border border-black bg-gray-200 h-30">
       <input
@@ -17,6 +20,10 @@ export default function InputSearch() {
             value="Ingredients"
             id="Ingredients"
             name="selected"
+            onClick={ () => {
+              setRadioSelect('ingredients');
+              console.log(radioSelect);
+            } }
           />
           Ingredients
         </label>
@@ -27,6 +34,10 @@ export default function InputSearch() {
             value="Name"
             id="Name"
             name="selected"
+            onClick={ () => {
+              setRadioSelect('name');
+              console.log(radioSelect);
+            } }
           />
           Name
         </label>
@@ -37,6 +48,10 @@ export default function InputSearch() {
             value="FirstLetter"
             id="FirstLetter"
             name="selected"
+            onClick={ () => {
+              setRadioSelect('firstLetter');
+              console.log(radioSelect);
+            } }
           />
           First Letter
         </label>
