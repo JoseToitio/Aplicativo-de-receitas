@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import GlobalContext from '../context/GlobalContext';
 
 export default function InputSearch() {
-  const { radioSelect, setRadioSelect } = useContext(GlobalContext);
+  const { setRadioSelect } = useContext(GlobalContext);
 
   return (
     <div className="flex-col border border-black bg-gray-200 h-30">
@@ -55,7 +55,7 @@ export default function InputSearch() {
       </div>
       <button
         data-testid="exec-search-btn"
-        className="px-2 py-1  transition ease-in duration-200 uppercase rounded-full
+        className="px-2 py-1 transition ease-in duration-200 uppercase rounded-full
           hover:bg-gray-800 hover:text-white border-2 border-gray-900 focus:outline-none"
         type="button"
       >

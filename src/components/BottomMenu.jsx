@@ -8,7 +8,10 @@ function BottomMenu() {
   // Fonte de pesquisa para usar useHsitory -> https://v5.reactrouter.com/web/api/Hooks
   const history = useHistory();
   return (
-    <footer data-testid="footer">
+    <footer
+      data-testid="footer"
+      className="flex justify-around bg-gray-400 h-14"
+    >
       <button
         type="button"
         onClick={ () => history.push('/drinks') }

@@ -1,17 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import BottomMenu from '../components/BottomMenu';
 
-export default function MainFoods({ history }) {
+export default function MainFoods() {
   return (
     <main>
-      <Header name="Foods" showIcon history={ history } />
+      <Header name="Foods" showIcon />
       <BottomMenu />
     </main>
   );
 }
-
-MainFoods.propTypes = {
-  history: PropTypes.objectOf(PropTypes.any).isRequired,
-};
