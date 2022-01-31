@@ -2,11 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import BottomMenu from '../components/BottomMenu';
+import Items from '../components/Items';
 
 export default function MainFoods({ history }) {
   return (
     <main>
       <Header name="Foods" showIcon history={ history } />
+      <Items />
       <BottomMenu />
     </main>
   );
