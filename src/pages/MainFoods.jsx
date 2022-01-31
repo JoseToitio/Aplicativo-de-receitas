@@ -1,10 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
+import BottomMenu from '../components/BottomMenu';
 
 export default function MainFoods({ history }) {
   return (
-    <Header name="Foods" showIcon history={ history } />
+    <main>
+      <Header name="Foods" showIcon history={ history } />
+      <BottomMenu />
+    </main>
   );
 }
 

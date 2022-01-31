@@ -1,8 +1,12 @@
 import React from 'react';
+import BottomMenu from '../components/BottomMenu';
 import Header from '../components/Header';
 
 export default function FoodExplore() {
   return (
-    <Header name="Explore Foods" showIcon={ false } />
+    <main>
+      <Header name="Explore Foods" showIcon={ false } />
+      <BottomMenu />
+    </main>
   );
 }
