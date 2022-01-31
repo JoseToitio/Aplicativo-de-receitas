@@ -22,7 +22,6 @@ export default function InputSearch() {
             name="selected"
             onClick={ () => {
               setRadioSelect('ingredients');
-              console.log(radioSelect);
             } }
           />
           Ingredients
@@ -36,7 +35,6 @@ export default function InputSearch() {
             name="selected"
             onClick={ () => {
               setRadioSelect('name');
-              console.log(radioSelect);
             } }
           />
           Name
@@ -50,7 +48,6 @@ export default function InputSearch() {
             name="selected"
             onClick={ () => {
               setRadioSelect('firstLetter');
-              console.log(radioSelect);
             } }
           />
           First Letter
