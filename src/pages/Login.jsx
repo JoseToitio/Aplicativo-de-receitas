@@ -78,8 +78,14 @@ function Login({ history }) {
         </div>
         <div className="flex items-center justify-between">
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4
-            rounded focus:outline-none focus:shadow-outline"
+            className={
+              disabled
+                ? `bg-red-500 text-white font-bold py-2 px-4 border-b-4 
+                border-red-700 rounded cursor-not-allowed`
+                : `bg-blue-500 hover:bg-blue-400 text-white font-bold 
+                py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded
+                animate-pulse`
+            }
             type="button"
             data-testid="login-submit-btn"
             disabled={ disabled }
