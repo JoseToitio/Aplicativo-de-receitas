@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import InputSearch from './InputSearch';
 
-export default function Header({ name, showIcon, history }) {
+export default function Header({ name, showIcon }) {
   const [showInput, setShowInput] = useState(false);
+  const history = useHistory();
 
   function dropInput() {
     return (
@@ -57,5 +59,4 @@ export default function Header({ name, showIcon, history }) {
 Header.propTypes = {
   showIcon: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
-  history: PropTypes.objectOf(PropTypes.any).isRequired,
 };

@@ -102,7 +102,7 @@ export default function InputSearch() {
       </div>
       <button
         data-testid="exec-search-btn"
-        className="px-2 py-1  transition ease-in duration-200 uppercase rounded-full
+        className="px-2 py-1 transition ease-in duration-200 uppercase rounded-full
           hover:bg-gray-800 hover:text-white border-2 border-gray-900 focus:outline-none"
         type="button"
         onClick={ handleClick }
