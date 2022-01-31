@@ -2,18 +2,14 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-
+import InputSearch from './InputSearch';
 
 export default function Header({ name, showIcon, history }) {
   const [showInput, setShowInput] = useState(false);
 
   function dropInput() {
     return (
-      <input
-        data-testid="search-input"
-        type="text"
-        placeholder="Pesquise aqui"
-      />
+      <InputSearch />
     );
   }
 
@@ -33,23 +29,27 @@ export default function Header({ name, showIcon, history }) {
   }
 
   return (
-    <div className="bg-gray-300 flex justify-around items-center h-14">
-      <button
-        type="button"
-        data-testid="profile-top-btn"
-        src={ profileIcon }
-        onClick={ () => history.push('/profile') }
-      >
-        <img src={ profileIcon } alt="prof" />
-      </button>
-      <span
-        data-testid="page-title"
-        className="font-mono text-2xl font-bold"
-      >
-        {name}
-      </span>
-      { showIcon && showSearch() }
-      { showInput && dropInput() }
+    <div>
+      <div className="bg-gray-400 flex justify-around items-center h-14">
+        <button
+          type="button"
+          data-testid="profile-top-btn"
+          src={ profileIcon }
+          onClick={ () => history.push('/profile') }
+        >
+          <img src={ profileIcon } alt="prof" />
+        </button>
+        <span
+          data-testid="page-title"
+          className="font-mono text-2xl font-bold"
+        >
+          {name}
+        </span>
+        { showIcon && showSearch() }
+      </div>
+      <div>
+        { showInput && dropInput() }
+      </div>
     </div>
   );
 }
