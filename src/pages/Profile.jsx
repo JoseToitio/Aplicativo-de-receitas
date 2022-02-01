@@ -5,10 +5,13 @@ import Header from '../components/Header';
 
 export default function Profile() {
   const history = useHistory();
+
+  function getEmail() {
+    const strgEmail = localStorage.getItem('user');
+    const email = JSON.parse(strgEmail);
+    if (email) return Object.values(email)[0];
+  }
   const CSS = 'bg-gray-300 my-3 w-60 h-20 border border-black';
-  const email = localStorage.getItem('user')
-    .replace('{"email":"', '')
-    .replace('"}', '');
   return (
     <main>
       <Header name="Profile" showIcon={ false } />
@@ -19,7 +22,7 @@ export default function Profile() {
         <span
           className="flex mt-3 bg-black text-white p-6 h-8 uppercase items-center"
         >
-          { email }
+          { getEmail() }
         </span>
         <button
           className={ CSS }
