@@ -7,7 +7,7 @@ export default function MainFoods() {
   return (
     <main>
       <Header name="Foods" showIcon />
-      <Items />
+      <Items page="Foods" />
       <BottomMenu />
     </main>
   );
