@@ -20,16 +20,15 @@ import DoneRecipes from './pages/DoneRecipes';
 import FavRecipes from './pages/FavRecipes';
 
 function App() {
-  const Url = 552;
   return (
     <Switch>
       <Route exact path="/" component={ Login } />
       <Route exact path="/foods" component={ MainFoods } />
       <Route exact path="/drinks" component={ MainDrinks } />
-      <Route exact path={ `/foods/${Url}` } component={ FoodDetails } />
-      <Route exact path={ `/drinks/${Url}` } component={ DrinkDetails } />
-      <Route exact path={ `/foods/${Url}/in-progress` } component={ FoodProgress } />
-      <Route exact path={ `/drinks/${Url}/in-progress` } component={ DrinkProgress } />
+      <Route exact path="/foods/:idURL" component={ FoodDetails } />
+      <Route exact path="/drinks/:idURL" component={ DrinkDetails } />
+      <Route exact path="/foods/:idURL/in-progress" component={ FoodProgress } />
+      <Route exact path="/drinks/:idURL/in-progress" component={ DrinkProgress } />
       <Route exact path="/explore" component={ Explore } />
       <Route exact path="/explore/foods" component={ FoodExplore } />
       <Route exact path="/explore/drinks" component={ DrinkExplore } />

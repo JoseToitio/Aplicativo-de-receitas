@@ -22,7 +22,7 @@ function Login({ history }) {
   const handleClick = () => {
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
-    localStorage.setItem('user', JSON.stringify({ email }));
+    localStorage.setItem('email', JSON.stringify({ email }));
     history.push('/foods');
   };
   return (
