@@ -6,8 +6,8 @@ import Items from '../components/Items';
 export default function MainFoods() {
   return (
     <main>
-      <Header name="Foods" showIcon history={ history } />
-      <Items />
+      <Header name="Foods" showIcon />
+      <Items page="Foods" />
       <BottomMenu />
     </main>
   );

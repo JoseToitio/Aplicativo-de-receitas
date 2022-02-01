@@ -8,36 +8,36 @@ import { apiDrinkIngrediente,
 export default function InputSearch() {
   const history = useHistory();
   const { radioSelect,
-    setRadioSelect, setValueApi } = useContext(GlobalContext);
-  const [inputText, setInputText] = useState('');
+    setRadioSelect, setValueApiMeals, setValueApiDrinks } = useContext(GlobalContext);
+  const [inputText, setInputText] = useState();
 
   const apiFilterFood = async (value) => {
     if (radioSelect === 'ingredients') {
-      await apiIngrediente(value).then((r) => setValueApi(r));
+      await apiIngrediente(value).then((r) => setValueApiMeals(r.meals));
     }
     if (radioSelect === 'name') {
-      await apiName(value).then((r) => setValueApi(r));
+      await apiName(value).then((r) => setValueApiMeals(r.meals));
     }
     if (radioSelect === 'firstLetter') {
       if (value.length > 1) {
         global.alert('Your search must have only 1 (one) character');
       }
-      await apiFirstLetter(value).then((r) => setValueApi(r));
+      await apiFirstLetter(value).then((r) => setValueApiMeals(r.meals));
     }
   };
 
   const apiFilterDrinks = async (value) => {
     if (radioSelect === 'ingredients') {
-      await apiDrinkIngrediente(value).then((r) => setValueApi(r));
+      await apiDrinkIngrediente(value).then((r) => setValueApiDrinks(r.drinks));
     }
     if (radioSelect === 'name') {
-      await apiDrinkName(value).then((r) => setValueApi(r));
+      await apiDrinkName(value).then((r) => setValueApiDrinks(r.drinks));
     }
     if (radioSelect === 'firstLetter') {
       if (value.length > 1) {
         global.alert('Your search must have only 1 (one) character');
       }
-      await apiDrinkFirstLetter(value).then((r) => setValueApi(r));
+      await apiDrinkFirstLetter(value).then((r) => setValueApiDrinks(r.drinks));
     }
   };
 
