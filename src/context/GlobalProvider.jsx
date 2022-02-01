@@ -4,7 +4,7 @@ import GlobalContext from './GlobalContext';
 
 export default function GlobalProvider({ children }) {
   const [radioSelect, setRadioSelect] = useState();
-  const [valueApi, setValueApi] = useState('');
+  const [valueApi, setValueApi] = useState([]);
   return (
     <GlobalContext.Provider
       value={ {

@@ -9,7 +9,7 @@ export default function InputSearch() {
   const history = useHistory();
   const { radioSelect,
     setRadioSelect, setValueApi } = useContext(GlobalContext);
-  const [inputText, setInputText] = useState('');
+  const [inputText, setInputText] = useState();
 
   const apiFilterFood = async (value) => {
     if (radioSelect === 'ingredients') {
