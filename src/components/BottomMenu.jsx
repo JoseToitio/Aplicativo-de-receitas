@@ -10,7 +10,7 @@ function BottomMenu() {
   return (
     <footer
       data-testid="footer"
-      className="flex justify-around bg-gray-400 h-14"
+      className="flex justify-evenly bg-gray-400 h-14"
     >
       <button
         type="button"
