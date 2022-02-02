@@ -1,5 +1,10 @@
 import React from 'react';
+import DetailsDrinks from '../components/DetailsDrinks';
 
 export default function DrinkDetails() {
-  return <div>detalhes de uma receita de bebida</div>;
+  return (
+    <div>
+      <DetailsDrinks />
+    </div>
+  );
 }

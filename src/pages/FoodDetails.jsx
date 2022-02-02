@@ -1,5 +1,10 @@
 import React from 'react';
+import DetailsMeals from '../components/DetailsMeals';
 
 export default function FoodDetails() {
-  return <div>detalhes de uma receita de comida</div>;
+  return (
+    <div>
+      <DetailsMeals />
+    </div>
+  );
 }
