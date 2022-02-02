@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import GlobalContext from '../context/GlobalContext';
@@ -8,10 +8,13 @@ function Items({ page }) {
     ValueApiDrinks } = useContext(GlobalContext);
   const history = useHistory();
   const max = 12;
+  const [filterMaxDrinks, setFilterMaxDrinks] = useState([]);
+  const [filterMaxMeals, setFilterMaxMeals] = useState([]);
 
-  const filterMaxDrinks = ValueApiDrinks.filter((d, index) => index < max);
-  const filterMaxMeals = valueApiMeals.filter((d, index) => index < max);
-
+  useEffect(() => {
+    setFilterMaxDrinks(ValueApiDrinks.filter((d, index) => index < max));
+    setFilterMaxMeals(valueApiMeals.filter((d, index) => index < max));
+  }, [ValueApiDrinks, valueApiMeals]);
   const renderFood = () => (
     <div>
       { valueApiMeals.length === 1
@@ -52,6 +55,6 @@ function Items({ page }) {
   );
 }
 Items.propTypes = {
-  page: PropTypes.objectOf(PropTypes.any).isRequired,
+  page: PropTypes.string.isRequired,
 };
 export default Items;
