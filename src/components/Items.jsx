@@ -33,7 +33,7 @@ function Items({ page }) {
         <div>
           { (page === 'Foods')
             ? (
-              renderFoods.map((food, index) => (
+              renderFoods.filter((d, index) => index < max).map((food, index) => (
                 <div key={ index } data-testid={ `${index}-recipe-card` }>
                   <img
                     src={ food.strMealThumb }
@@ -43,7 +43,7 @@ function Items({ page }) {
                   <p data-testid={ `${index}-card-name` }>{food.strMeal}</p>
                 </div>
               ))) : (
-              renderDrinks.map((drink, index) => (
+              renderDrinks.filter((d, index) => index < max).map((drink, index) => (
                 <div key={ index } data-testid={ `${index}-recipe-card` }>
                   <img
                     src={ drink.strDrinkThumb }
@@ -57,7 +57,6 @@ function Items({ page }) {
       );
     }
   };
-
 
   useEffect(() => {
     setFilterMaxDrinks(ValueApiDrinks.filter((d, index) => index < max));
