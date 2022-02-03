@@ -3,11 +3,13 @@ import { useLocation } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import { apiIdDrinks } from '../services/apiIdItems';
+import { apiRecomendacaoMeals } from '../services/apiRecomendacao';
 
 function DetailsMeals() {
   const { pathname } = useLocation();
   const [itemDetail, setItemDetail] = useState([]);
-
+  const [recomendacao, setRecomendacao] = useState([]);
+  const recomendacaoMax = 6;
   const idItem = () => {
     const numsStr = pathname.replace(/[^0-9]/g, '');
     return numsStr;
@@ -15,6 +17,9 @@ function DetailsMeals() {
 
   const requestApi = async () => {
     await apiIdDrinks(idItem()).then((r) => setItemDetail(r.drinks));
+    await apiRecomendacaoMeals()
+      .then((r) => setRecomendacao(r.meals
+        .filter((m, index) => index < recomendacaoMax)));
   };
   useEffect(() => {
     requestApi();
@@ -23,7 +28,7 @@ function DetailsMeals() {
 
   return (
     <div>
-      {console.log(itemDetail)}
+      {console.log(recomendacao)}
       {itemDetail.map((item, index) => (
         <div key={ item.idDrink }>
           <img src="" alt="" data-testid="recipe-photo" />
