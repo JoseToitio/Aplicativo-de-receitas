@@ -1,99 +1,57 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
+import GlobalContext from '../context/GlobalContext';
 
 export default function CategoriesBtn({ page }) {
+  const { setCategoryFood, setCategoryDrink } = useContext(GlobalContext);
   const btnCSS = `bg-gray-400 m-2 h-8 hover:bg-gray-500
-    text-black font-bold rounded`;
+    text-black font-bold rounded text-xs`;
+  const foodsCategories = ['All', 'Beef', 'Chicken', 'Breakfast', 'Dessert', 'Goat'];
+  const drinksCategories = [
+    'All',
+    'Ordinary Drink',
+    'Cocktail',
+    'Milk / Float / Shake',
+    'Other/Unknown',
+    'Cocoa',
+  ];
 
   const catFoods = () => (
     <div className="flex flex-wrap grid grid-cols-3 justify-evenly">
-      <button
-        type="button"
-        className={ btnCSS }
-      >
-        All
-      </button>
-      <button
-        type="button"
-        className={ btnCSS }
-        data-testid="Beef-category-filter"
-      >
-        Beef
-      </button>
-      <button
-        type="button"
-        className={ btnCSS }
-        data-testid="Chicken-category-filter"
-      >
-        Chicken
-      </button>
-      <button
-        type="button"
-        className={ btnCSS }
-        data-testid="Breakfast-category-filter"
-      >
-        Breakfast
-      </button>
-      <button
-        type="button"
-        className={ btnCSS }
-        data-testid="Dessert-category-filter"
-      >
-        Dessert
-      </button>
-      <button
-        type="button"
-        className={ btnCSS }
-        data-testid="Goat-category-filter"
-      >
-        Goat
-      </button>
+      {foodsCategories.map((catName, i) => (
+        <button
+          key={ i }
+          type="button"
+          value={ catName.replace(/ /g, '_') }
+          className={ btnCSS }
+          data-testid={ `${catName}-category-filter` }
+          onClick={ () => {
+            setCategoryFood(catName.replace(/ /g, '_'));
+            setCategoryDrink('');
+          } }
+        >
+          { catName }
+        </button>
+      ))}
     </div>
   );
 
   const catDrinks = () => (
     <div className="flex flex-wrap grid grid-cols-3 justify-evenly">
-      <button
-        type="button"
-        className={ btnCSS }
-      >
-        All
-      </button>
-      <button
-        type="button"
-        className={ btnCSS }
-        data-testid="Ordinary Drink-category-filter"
-      >
-        Ordinary Drink
-      </button>
-      <button
-        type="button"
-        className={ btnCSS }
-        data-testid="Cocktail-category-filter"
-      >
-        Cocktail
-      </button>
-      <button
-        type="button"
-        className={ btnCSS }
-        data-testid="Milk / Float / Shake-category-filter"
-      >
-        Milk/Float/Shake
-      </button>
-      <button
-        type="button"
-        className={ btnCSS }
-        data-testid="Other/Unknown-category-filter"
-      >
-        Other/Unknown
-      </button>
-      <button
-        type="button"
-        className={ btnCSS }
-        data-testid="Cocoa-category-filter"
-      >
-        Cocoa
-      </button>
+      {drinksCategories.map((catName, index) => (
+        <button
+          key={ index }
+          type="button"
+          className={ btnCSS }
+          data-testid={ `${catName}-category-filter` }
+          onClick={ () => {
+            setCategoryDrink(catName.replace(/ /g, '_'));
+            setCategoryFood('');
+          } }
+        >
+          { catName }
+        </button>
+      ))}
     </div>
   );
 
@@ -107,3 +65,5 @@ export default function CategoriesBtn({ page }) {
 CategoriesBtn.propTypes = {
   page: PropTypes.string.isRequired,
 };
+
+// .replace(<strong>/ /g</strong>, "_")

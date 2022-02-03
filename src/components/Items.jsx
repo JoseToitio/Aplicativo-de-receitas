@@ -7,9 +7,9 @@ import { allFoods } from '../services/apiFood';
 import { allDrinks } from '../services/apiDrinks';
 
 function Items({ page }) {
-  const [loading, setLoading] = useState(false);
   const { valueApiMeals, renderFoods, renderDrinks,
-    setRenderFoods, setRenderDrinks, ValueApiDrinks } = useContext(GlobalContext);
+    setRenderFoods, setRenderDrinks, ValueApiDrinks,
+    loading, setLoading } = useContext(GlobalContext);
   const history = useHistory();
   const max = 12;
   const [filterMaxDrinks, setFilterMaxDrinks] = useState([]);
@@ -34,23 +34,45 @@ function Items({ page }) {
           { (page === 'Foods')
             ? (
               renderFoods.filter((d, index) => index < max).map((food, index) => (
-                <div key={ index } data-testid={ `${index}-recipe-card` }>
+                <div
+                  key={ index }
+                  data-testid={ `${index}-recipe-card` }
+                  className="h-48 flex grid
+                  w-48 m-3 rounded overflow-hidden shadow-lg"
+                >
                   <img
+                    className="w-full h-40 flex"
                     src={ food.strMealThumb }
                     alt={ food.strMeal }
                     data-testid={ `${index}-card-img` }
                   />
-                  <p data-testid={ `${index}-card-name` }>{food.strMeal}</p>
+                  <p
+                    className="flex"
+                    data-testid={ `${index}-card-name` }
+                  >
+                    {food.strMeal}
+                  </p>
                 </div>
               ))) : (
               renderDrinks.filter((d, index) => index < max).map((drink, index) => (
-                <div key={ index } data-testid={ `${index}-recipe-card` }>
+                <div
+                  key={ index }
+                  data-testid={ `${index}-recipe-card` }
+                  className="h-48 flex grid
+                  w-48 m-3 rounded overflow-hidden shadow-lg"
+                >
                   <img
+                    className="w-full h-40 flex"
                     src={ drink.strDrinkThumb }
                     alt={ drink.strDrink }
                     data-testid={ `${index}-card-img` }
                   />
-                  <p data-testid={ `${index}-card-name` }>{drink.strDrink}</p>
+                  <p
+                    className="flex"
+                    data-testid={ `${index}-card-name` }
+                  >
+                    {drink.strDrink}
+                  </p>
                 </div>
               )))}
         </div>
