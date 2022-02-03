@@ -6,6 +6,8 @@ export default function GlobalProvider({ children }) {
   const [radioSelect, setRadioSelect] = useState();
   const [valueApiMeals, setValueApiMeals] = useState([]);
   const [ValueApiDrinks, setValueApiDrinks] = useState([]);
+  const [renderFoods, setRenderFoods] = useState([]);
+  const [renderDrinks, setRenderDrinks] = useState([]);
 
   return (
     <GlobalContext.Provider
@@ -16,6 +18,10 @@ export default function GlobalProvider({ children }) {
         setValueApiMeals,
         ValueApiDrinks,
         setValueApiDrinks,
+        renderFoods,
+        setRenderFoods,
+        renderDrinks,
+        setRenderDrinks,
       } }
     >
       { children }

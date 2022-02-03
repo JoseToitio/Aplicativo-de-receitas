@@ -17,3 +17,10 @@ export const apiFirstLetter = async (firstLetter) => {
 
   return result;
 };
+
+export const allFoods = async () => {
+  const result = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
+    .then((r) => r.json());
+
+  return result;
+};
