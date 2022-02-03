@@ -10,34 +10,53 @@ export default function InputSearch() {
   const { radioSelect,
     setRadioSelect, setValueApiMeals, setValueApiDrinks } = useContext(GlobalContext);
   const [inputText, setInputText] = useState();
+  const errorMessage = 'Sorry, we haven\'t found any recipes for these filters.';
 
   const apiFilterFood = async (value) => {
     if (radioSelect === 'ingredients') {
-      await apiIngrediente(value).then((r) => setValueApiMeals(r.meals));
+      await apiIngrediente(value).then((r) => setValueApiMeals(r.meals))
+        .catch(() => global.alert(errorMessage));
     }
     if (radioSelect === 'name') {
-      await apiName(value).then((r) => setValueApiMeals(r.meals));
+      await apiName(value).then((r) => {
+        if (r.meals === null) {
+          global.alert(errorMessage);
+          setValueApiMeals([]);
+        } else {
+          setValueApiMeals(r.meals);
+        }
+      });
     }
     if (radioSelect === 'firstLetter') {
       if (value.length > 1) {
         global.alert('Your search must have only 1 (one) character');
       }
-      await apiFirstLetter(value).then((r) => setValueApiMeals(r.meals));
+      await apiFirstLetter(value).then((r) => setValueApiMeals(r.meals))
+        .catch(() => global.alert(errorMessage));
     }
   };
 
   const apiFilterDrinks = async (value) => {
     if (radioSelect === 'ingredients') {
-      await apiDrinkIngrediente(value).then((r) => setValueApiDrinks(r.drinks));
+      await apiDrinkIngrediente(value).then((r) => setValueApiDrinks(r.drinks))
+        .catch(() => global.alert(errorMessage));
     }
     if (radioSelect === 'name') {
-      await apiDrinkName(value).then((r) => setValueApiDrinks(r.drinks));
+      await apiDrinkName(value).then((r) => {
+        if (r.drinks === null) {
+          global.alert(errorMessage);
+          setValueApiDrinks([]);
+        } else {
+          setValueApiDrinks(r.drinks);
+        }
+      });
     }
     if (radioSelect === 'firstLetter') {
       if (value.length > 1) {
         global.alert('Your search must have only 1 (one) character');
       }
-      await apiDrinkFirstLetter(value).then((r) => setValueApiDrinks(r.drinks));
+      await apiDrinkFirstLetter(value).then((r) => setValueApiDrinks(r.drinks))
+        .catch(() => global.alert(errorMessage));
     }
   };
 
