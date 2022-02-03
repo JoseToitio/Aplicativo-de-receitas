@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import GlobalContext from '../context/GlobalContext';
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
@@ -7,6 +8,7 @@ import mealIcon from '../images/mealIcon.svg';
 function BottomMenu() {
   // Fonte de pesquisa para usar useHsitory -> https://v5.reactrouter.com/web/api/Hooks
   const history = useHistory();
+  const { setValueApiDrinks, setValueApiMeals } = useContext(GlobalContext);
   return (
     <footer
       data-testid="footer"
@@ -14,7 +16,11 @@ function BottomMenu() {
     >
       <button
         type="button"
-        onClick={ () => history.push('/drinks') }
+        onClick={ () => {
+          history.push('/drinks');
+          setValueApiDrinks([]);
+          setValueApiMeals([]);
+        } }
       >
         <img data-testid="drinks-bottom-btn" src={ drinkIcon } alt="drinks-button" />
       </button>
@@ -26,7 +32,11 @@ function BottomMenu() {
       </button>
       <button
         type="button"
-        onClick={ () => history.push('/foods') }
+        onClick={ () => {
+          history.push('/foods');
+          setValueApiDrinks([]);
+          setValueApiMeals([]);
+        } }
       >
         <img data-testid="food-bottom-btn" src={ mealIcon } alt="food-button" />
       </button>
