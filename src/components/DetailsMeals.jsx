@@ -34,7 +34,25 @@ function DetailsMeals() {
     requestApi();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  const arrayIngredients = () => {
+    if (itemDetail.length > 0) {
+      const max = 15;
+      const array = itemDetail[0];
+      const arrayIngredientsAndMeasures = [];
+      for (let index = 1; index <= max; index += 1) {
+        if (itemDetail[0][`strIngredient${index}`] !== '') {
+          let str = `${itemDetail[0][`strIngredient${index}`]}`;
+          if (itemDetail[0][`strMeasure${index}`] !== '') {
+            str = `${array[`strIngredient${index}`]} - ${array[`strMeasure${index}`]}`;
+          }
+          arrayIngredientsAndMeasures.push(str);
+        }
+      }
+      return arrayIngredientsAndMeasures;
+    }
+  };
 
+  const ingredientsAndMeasures = arrayIngredients();
   return (
     <div>
       {console.log(recomendacao)}
@@ -50,12 +68,16 @@ function DetailsMeals() {
           </button>
           <p data-testid="recipe-category">{item.strCategory}</p>
           <h3>Ingredients</h3>
-          <p
-            data-testid={ `${index}-ingredient-name-and-measure` }
-          >
-            {}
-
-          </p>
+          <ul>
+            {ingredientsAndMeasures.map((ingredient, ind) => (
+              <li
+                data-testid={ `${ind}-ingredient-name-and-measure` }
+                key={ `${ind}-ingredient-name-and-measure` }
+              >
+                {ingredient === ' - ' ? null : ingredient}
+              </li>
+            ))}
+          </ul>
           <h3>Instructions</h3>
           <p data-testid="instructions">{item.strInstructions}</p>
           {pathname.includes('foods')
