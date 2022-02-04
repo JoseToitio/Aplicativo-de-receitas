@@ -1,9 +1,14 @@
 import PropTypes from 'prop-types';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
+import { useHistory } from 'react-router';
 import GlobalContext from '../context/GlobalContext';
+import { foodsByCategory } from '../services/apiFood';
+import { drinksByCategory } from '../services/apiDrinks';
 
 export default function CategoriesBtn({ page }) {
-  const { setCategoryFood, setCategoryDrink } = useContext(GlobalContext);
+  const { setCategoryFood, setCategoryDrink, setValueCatFood, setValueCatDrink,
+    categoryFood, categoryDrink } = useContext(GlobalContext);
+  const history = useHistory();
   const btnCSS = `bg-gray-400 m-2 h-8 hover:bg-gray-500
     text-black font-bold rounded text-xs`;
   const foodsCategories = ['All', 'Beef', 'Chicken', 'Breakfast', 'Dessert', 'Goat'];
@@ -15,6 +20,31 @@ export default function CategoriesBtn({ page }) {
     'Other/Unknown',
     'Cocoa',
   ];
+  const max = 12;
+
+  useEffect(() => {
+    foodsByCategory(categoryFood)
+      .then((r) => {
+        setValueCatFood(r.meals.filter((d, index) => index < max));
+        setValueCatDrink([]);
+      });
+    drinksByCategory(categoryDrink)
+      .then((r) => {
+        setValueCatDrink(r.drinks.filter((d, index) => index < max));
+        setValueCatFood([]);
+      });
+  }, [categoryDrink, categoryFood]);
+
+  const handleClick = (categoryName) => {
+    if (history.location.pathname === '/foods') {
+      setCategoryFood(categoryName);
+      setCategoryDrink('All');
+    }
+    if (history.location.pathname === '/drinks') {
+      setCategoryDrink(categoryName);
+      setCategoryFood('All');
+    }
+  };
 
   const catFoods = () => (
     <div className="flex flex-wrap grid grid-cols-3 justify-evenly">
@@ -22,13 +52,9 @@ export default function CategoriesBtn({ page }) {
         <button
           key={ i }
           type="button"
-          value={ catName.replace(/ /g, '_') }
           className={ btnCSS }
           data-testid={ `${catName}-category-filter` }
-          onClick={ () => {
-            setCategoryFood(catName.replace(/ /g, '_'));
-            setCategoryDrink('');
-          } }
+          onClick={ () => handleClick(catName.replace(/ /g, '_')) }
         >
           { catName }
         </button>
@@ -44,10 +70,7 @@ export default function CategoriesBtn({ page }) {
           type="button"
           className={ btnCSS }
           data-testid={ `${catName}-category-filter` }
-          onClick={ () => {
-            setCategoryDrink(catName.replace(/ /g, '_'));
-            setCategoryFood('');
-          } }
+          onClick={ () => handleClick(catName.replace(/ /g, '_')) }
         >
           { catName }
         </button>

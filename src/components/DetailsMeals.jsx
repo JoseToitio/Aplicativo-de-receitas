@@ -45,7 +45,7 @@ function DetailsMeals() {
           <h3>Instructions</h3>
           <p data-testid="instructions">details Instructions</p>
           {pathname.includes('foods')
-       && <a href="*" data-testid="video">Video</a> }
+        && <a href="*" data-testid="video">Video</a> }
           <h3>Receitas Recomendadas</h3>
           <div data-testid={ `${index}-recomendation-card` } />
           <button type="button" data-testid="start-recipe-btn">Start Recipe</button>

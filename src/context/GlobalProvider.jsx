@@ -9,8 +9,10 @@ export default function GlobalProvider({ children }) {
   const [renderFoods, setRenderFoods] = useState([]);
   const [renderDrinks, setRenderDrinks] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [categoryFood, setCategoryFood] = useState('');
-  const [categoryDrink, setCategoryDrink] = useState('');
+  const [categoryFood, setCategoryFood] = useState('All');
+  const [categoryDrink, setCategoryDrink] = useState('All');
+  const [valueCatFood, setValueCatFood] = useState([]);
+  const [valueCatDrink, setValueCatDrink] = useState([]);
 
   return (
     <GlobalContext.Provider
@@ -31,6 +33,10 @@ export default function GlobalProvider({ children }) {
         setCategoryFood,
         categoryDrink,
         setCategoryDrink,
+        valueCatFood,
+        setValueCatFood,
+        valueCatDrink,
+        setValueCatDrink,
       } }
     >
       { children }
