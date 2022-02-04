@@ -44,7 +44,6 @@ function DetailsMeals() {
   };
 
   const ingredientsAndMeasures = arrayIngredients();
-  console.log(ingredientsAndMeasures);
   return (
     <div>
       {console.log(recomendacao)}
