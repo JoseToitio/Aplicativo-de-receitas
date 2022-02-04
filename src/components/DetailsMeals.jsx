@@ -10,14 +10,6 @@ function DetailsMeals() {
   const [itemDetail, setItemDetail] = useState([]);
   const [recomendacao, setRecomendacao] = useState([]);
   const recomendacaoMax = 6;
-  // const ingredients = ['strIngredient1',
-  //   'strIngredient2', 'strIngredient3',
-  //   'strIngredient4', 'strIngredient5',
-  //   'strIngredient6', 'strIngredient7',
-  //   'strIngredient8', 'strIngredient9', 'strIngredient10', 'strIngredient11',
-  //   'strIngredient12', 'strIngredient13',
-  //   'strIngredient14', 'strIngredient15', 'strIngredient16', 'strIngredient17',
-  //   'strIngredient18', 'strIngredient19', 'strIngredient20'];
   const idItem = () => {
     const numsStr = pathname.replace(/[^0-9]/g, '');
     return numsStr;
@@ -55,8 +47,7 @@ function DetailsMeals() {
   const ingredientsAndMeasures = arrayIngredients();
   return (
     <div>
-      {console.log(recomendacao)}
-      {itemDetail.map((item, index) => (
+      {itemDetail.map((item) => (
         <div key={ item.idMeals }>
           <img src={ item.strMealThumb } alt="" data-testid="recipe-photo" />
           <h1 data-testid="recipe-title">{item.strMeal }</h1>
@@ -83,7 +74,26 @@ function DetailsMeals() {
           {pathname.includes('foods')
        && <a href={ item.strYoutube } data-testid="video">Video</a> }
           <h3>Receitas Recomendadas</h3>
-          <div data-testid={ `${index}-recomendation-card` } />
+          <div className="carousel slide relative">
+            <div className="carousel-inner relative w-full overflow-hidden">
+              {recomendacao.map((r, index) => (
+                <div
+                  key={ r.idDrinks }
+                  data-testid={ `${index}-recomendation-card` }
+                  className="carousel-item active relative float-left w-full"
+                >
+                  <img
+                    src={ r.strDrinkThumb }
+                    alt={ r.strDrink }
+
+                  />
+                  <p>{r.strAlcoholic}</p>
+                  {console.log(index)}
+                  <p data-testid={ `${index}-recomendation-title` }>{r.strDrink}</p>
+                </div>
+              ))}
+            </div>
+          </div>
           <button type="button" data-testid="start-recipe-btn">Start Recipe</button>
         </div>
       ))}
