@@ -4,6 +4,7 @@ import { useHistory } from 'react-router';
 import GlobalContext from '../context/GlobalContext';
 import { foodsByCategory } from '../services/apiFood';
 import { drinksByCategory } from '../services/apiDrinks';
+import Loading from './Loading';
 
 export default function CategoriesBtn({ page }) {
   const { setCategoryFood, setCategoryDrink, setValueCatFood, setValueCatDrink,
@@ -27,12 +28,12 @@ export default function CategoriesBtn({ page }) {
       .then((r) => {
         setValueCatFood(r.meals.filter((d, index) => index < max));
         setValueCatDrink([]);
-      }).catch((e) => console.log(e));
+      }).catch(() => <Loading />);
     drinksByCategory(categoryDrink)
       .then((r) => {
         setValueCatDrink(r.drinks.filter((d, index) => index < max));
         setValueCatFood([]);
-      }).catch((e) => console.log(e));
+      }).catch(() => <Loading />);
   }, [categoryDrink, categoryFood]);
 
   const handleClick = (categoryName) => {

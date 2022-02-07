@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import { apiIdMeals } from '../services/apiIdItems';
+import Loading from './Loading';
 
 function DetailsMeals() {
   const { pathname } = useLocation();
@@ -14,7 +15,8 @@ function DetailsMeals() {
   };
 
   const requestApi = async () => {
-    await apiIdMeals(idItem()).then((r) => setItemDetail(r.meals));
+    await apiIdMeals(idItem()).then((r) => setItemDetail(r.meals))
+      .catch(() => <Loading />);
   };
   useEffect(() => {
     requestApi();
@@ -25,7 +27,7 @@ function DetailsMeals() {
     <div>
       {console.log(itemDetail)}
       {itemDetail.map((item, index) => (
-        <div key={ item.idMeals }>
+        <div key={ item.idMeal }>
           <img src="" alt="" data-testid="recipe-photo" />
           <h1 data-testid="recipe-title">{item.strMeal }</h1>
           <button data-testid="share-btn" type="button">

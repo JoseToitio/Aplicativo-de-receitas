@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router';
 import GlobalContext from '../context/GlobalContext';
 import CategoriesBtn from './CategoriesBtn';
 import RenderInput from './RenderInput';
@@ -7,17 +8,20 @@ import RenderInput from './RenderInput';
 export default function ItemsCategory({ page }) {
   const { valueCatFood, valueCatDrink, valueApiMeals, ValueApiDrinks,
   } = useContext(GlobalContext);
+  const history = useHistory();
 
   const renderCategories = () => (
     <div className="flex grid grid-cols-2">
       {(page === 'Foods')
         ? (
           valueCatFood.map((food, index) => (
-            <div
-              key={ index }
+            <button
+              type="button"
+              key={ food.idMeal }
               data-testid={ `${index}-recipe-card` }
               className="h-54 flex grid
                 w-48 m-3 rounded overflow-hidden shadow-lg"
+              onClick={ () => history.push(`/foods/${food.idMeal}`) }
             >
               <img
                 className="w-full h-40 flex"
@@ -31,14 +35,16 @@ export default function ItemsCategory({ page }) {
               >
                 {food.strMeal}
               </p>
-            </div>
+            </button>
           ))) : (
           valueCatDrink.map((drink, index) => (
-            <div
-              key={ index }
+            <button
+              type="button"
+              key={ drink.idDrink }
               data-testid={ `${index}-recipe-card` }
               className="h-54 flex grid
                 w-48 m-3 rounded overflow-hidden shadow-lg"
+              onClick={ () => history.push(`/drinks/${drink.idDrink}`) }
             >
               <img
                 className="w-full h-40 flex"
@@ -52,7 +58,7 @@ export default function ItemsCategory({ page }) {
               >
                 {drink.strDrink}
               </p>
-            </div>
+            </button>
           )))}
     </div>
   );
