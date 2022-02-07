@@ -27,22 +27,30 @@ export default function CategoriesBtn({ page }) {
       .then((r) => {
         setValueCatFood(r.meals.filter((d, index) => index < max));
         setValueCatDrink([]);
-      });
+      }).catch((e) => console.log(e));
     drinksByCategory(categoryDrink)
       .then((r) => {
         setValueCatDrink(r.drinks.filter((d, index) => index < max));
         setValueCatFood([]);
-      });
+      }).catch((e) => console.log(e));
   }, [categoryDrink, categoryFood]);
 
   const handleClick = (categoryName) => {
     if (history.location.pathname === '/foods') {
-      setCategoryFood(categoryName);
-      setCategoryDrink('All');
+      if (categoryName === categoryFood) {
+        setCategoryFood('All');
+      } else {
+        setCategoryFood(categoryName);
+        setCategoryDrink('All');
+      }
     }
     if (history.location.pathname === '/drinks') {
-      setCategoryDrink(categoryName);
-      setCategoryFood('All');
+      if (categoryName === categoryDrink) {
+        setCategoryDrink('All');
+      } else {
+        setCategoryDrink(categoryName);
+        setCategoryFood('All');
+      }
     }
   };
 
@@ -54,7 +62,7 @@ export default function CategoriesBtn({ page }) {
           type="button"
           className={ btnCSS }
           data-testid={ `${catName}-category-filter` }
-          onClick={ () => handleClick(catName.replace(/ /g, '_')) }
+          onClick={ () => handleClick(catName) }
         >
           { catName }
         </button>
@@ -70,7 +78,7 @@ export default function CategoriesBtn({ page }) {
           type="button"
           className={ btnCSS }
           data-testid={ `${catName}-category-filter` }
-          onClick={ () => handleClick(catName.replace(/ /g, '_')) }
+          onClick={ () => handleClick(catName) }
         >
           { catName }
         </button>

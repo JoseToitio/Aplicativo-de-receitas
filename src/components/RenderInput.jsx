@@ -11,7 +11,7 @@ export default function RenderInput({ page }) {
   const max = 12;
 
   const renderFood = () => (
-    <div>
+    <div className="flex grid grid-cols-2">
       { valueApiMeals.length === 1
         ? history.push(`/foods/${valueApiMeals[0].idMeal}`)
         : filterMaxMeals.map((m, index) => (
@@ -20,25 +20,43 @@ export default function RenderInput({ page }) {
               src={ m.strMealThumb }
               alt={ m.strMeal }
               data-testid={ `${index}-card-img` }
+              className="h-54 flex grid
+                w-48 m-3 rounded overflow-hidden shadow-lg"
             />
-            <p data-testid={ `${index}-card-name` }>{m.strMeal}</p>
+            <p
+              className="flex"
+              data-testid={ `${index}-card-name` }
+            >
+              {m.strMeal}
+            </p>
           </div>
         )) }
     </div>
   );
 
   const renderDrink = () => (
-    <div>
+    <div className="flex grid grid-cols-2">
       {ValueApiDrinks.length === 1
         ? history.push(`/drinks/${ValueApiDrinks[0].idDrink}`)
         : filterMaxDrinks.map((d, index) => (
-          <div key={ d.idDrink } data-testid={ `${index}-recipe-card` }>
+          <div
+            key={ d.idDrink }
+            data-testid={ `${index}-recipe-card` }
+            className="h-54 flex grid
+                w-48 m-3 rounded overflow-hidden shadow-lg"
+          >
             <img
+              className="w-full h-40 flex"
               src={ d.strDrinkThumb }
               alt={ d.strDrink }
               data-testid={ `${index}-card-img` }
             />
-            <p data-testid={ `${index}-card-name` }>{d.strDrink}</p>
+            <p
+              className="flex"
+              data-testid={ `${index}-card-name` }
+            >
+              {d.strDrink}
+            </p>
           </div>
         ))}
     </div>
