@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router';
 import BottomMenu from '../components/BottomMenu';
 import Header from '../components/Header';
+import GlobalContext from '../context/GlobalContext';
 
 export default function Profile() {
   const history = useHistory();
+  const { setCategoryDrink, setCategoryFood } = useContext(GlobalContext);
+
+  function clearStates() {
+    setCategoryFood('All');
+    setCategoryDrink('All');
+  }
 
   function getEmail() {
     const strgEmail = localStorage.getItem('user');
@@ -47,6 +54,7 @@ export default function Profile() {
           onClick={ () => {
             localStorage.clear();
             history.push('/');
+            clearStates();
           } }
         >
           Logout

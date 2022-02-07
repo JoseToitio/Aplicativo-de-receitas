@@ -8,7 +8,8 @@ import mealIcon from '../images/mealIcon.svg';
 function BottomMenu() {
   // Fonte de pesquisa para usar useHsitory -> https://v5.reactrouter.com/web/api/Hooks
   const history = useHistory();
-  const { setValueApiDrinks, setValueApiMeals } = useContext(GlobalContext);
+  const { setValueApiDrinks, setValueApiMeals,
+    setCategoryFood, setCategoryDrink } = useContext(GlobalContext);
   return (
     <footer
       data-testid="footer"
@@ -20,6 +21,8 @@ function BottomMenu() {
           history.push('/drinks');
           setValueApiDrinks([]);
           setValueApiMeals([]);
+          setCategoryFood('All');
+          setCategoryDrink('All');
         } }
       >
         <img data-testid="drinks-bottom-btn" src={ drinkIcon } alt="drinks-button" />
@@ -36,6 +39,8 @@ function BottomMenu() {
           history.push('/foods');
           setValueApiDrinks([]);
           setValueApiMeals([]);
+          setCategoryFood('All');
+          setCategoryDrink('All');
         } }
       >
         <img data-testid="food-bottom-btn" src={ mealIcon } alt="food-button" />
