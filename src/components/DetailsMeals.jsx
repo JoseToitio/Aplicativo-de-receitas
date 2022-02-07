@@ -6,7 +6,6 @@ import { apiIdMeals } from '../services/apiIdItems';
 import Loading from './Loading';
 import { apiRecomendacaoDrinks } from '../services/apiRecomendacao';
 
-
 function DetailsMeals() {
   const { pathname } = useLocation();
   const [itemDetail, setItemDetail] = useState([]);
