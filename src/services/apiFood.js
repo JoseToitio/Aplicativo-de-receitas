@@ -34,3 +34,10 @@ export const foodsByCategory = async (category) => {
   }
   allFoods();
 };
+
+export const foodSurprise = async () => {
+  const result = await fetch('https://www.themealdb.com/api/json/v1/1/random.php')
+    .then((r) => r.json());
+
+  return result;
+};

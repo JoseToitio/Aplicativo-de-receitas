@@ -35,3 +35,10 @@ export const drinksByCategory = async (category) => {
   }
   allDrinks();
 };
+
+export const drinkSurprise = async () => {
+  const result = await fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php')
+    .then((r) => r.json());
+
+  return result;
+};
