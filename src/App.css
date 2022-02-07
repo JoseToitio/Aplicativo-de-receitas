@@ -62,3 +62,10 @@ footer {
     transform: rotate(-10deg);
   }
 }
+
+.start-recipe {
+  bottom: 0%;
+  margin-bottom: 0%;
+  position: fixed;
+  text-align: center;
+}
