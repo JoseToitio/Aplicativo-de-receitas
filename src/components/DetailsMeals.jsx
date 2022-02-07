@@ -3,7 +3,9 @@ import { useLocation } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import { apiIdMeals } from '../services/apiIdItems';
+import Loading from './Loading';
 import { apiRecomendacaoDrinks } from '../services/apiRecomendacao';
+
 
 function DetailsMeals() {
   const { pathname } = useLocation();
@@ -16,7 +18,8 @@ function DetailsMeals() {
   };
 
   const requestApi = async () => {
-    await apiIdMeals(idItem()).then((r) => setItemDetail(r.meals));
+    await apiIdMeals(idItem()).then((r) => setItemDetail(r.meals))
+      .catch(() => <Loading />);
     await apiRecomendacaoDrinks()
       .then(
         (r) => setRecomendacao(r.drinks.filter((m, index) => index < recomendacaoMax)),
@@ -48,8 +51,9 @@ function DetailsMeals() {
   return (
     <div>
       {itemDetail.map((item) => (
-        <div key={ item.idMeals }>
+        <div key={ item.idMeal }>
           <img src={ item.strMealThumb } alt="" data-testid="recipe-photo" />
+
           <h1 data-testid="recipe-title">{item.strMeal }</h1>
           <button data-testid="share-btn" type="button">
             <img src={ shareIcon } alt="share" />

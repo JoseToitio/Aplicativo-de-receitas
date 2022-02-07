@@ -1,23 +1,28 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router';
 import GlobalContext from '../context/GlobalContext';
 import CategoriesBtn from './CategoriesBtn';
 import { allFoods } from '../services/apiFood';
 import { allDrinks } from '../services/apiDrinks';
 import RenderInput from './RenderInput';
+import Loading from './Loading';
 
 function Items({ page }) {
   const { valueApiMeals, renderFoods, renderDrinks,
     setRenderFoods, setRenderDrinks, ValueApiDrinks,
   } = useContext(GlobalContext);
   const max = 12;
+  const history = useHistory();
 
   const getFoods = async () => {
-    await allFoods().then((f) => setRenderFoods(f.meals));
+    await allFoods().then((f) => setRenderFoods(f.meals))
+      .catch(() => <Loading />);
   };
 
   const getDrinks = async () => {
-    await allDrinks().then((d) => setRenderDrinks(d.drinks));
+    await allDrinks().then((d) => setRenderDrinks(d.drinks))
+      .catch(() => <Loading />);
   };
 
   const renderAll = () => {
@@ -30,11 +35,13 @@ function Items({ page }) {
           { (page === 'Foods')
             ? (
               renderFoods.filter((d, index) => index < max).map((food, index) => (
-                <div
-                  key={ index }
+                <button
+                  type="button"
+                  key={ food.idMeal }
                   data-testid={ `${index}-recipe-card` }
                   className="h-54 flex grid
                   w-48 m-3 rounded overflow-hidden shadow-lg"
+                  onClick={ () => history.push(`/foods/${food.idMeal}`) }
                 >
                   <img
                     className="w-full h-40 flex"
@@ -48,14 +55,16 @@ function Items({ page }) {
                   >
                     {food.strMeal}
                   </p>
-                </div>
+                </button>
               ))) : (
               renderDrinks.filter((d, index) => index < max).map((drink, index) => (
-                <div
-                  key={ index }
+                <button
+                  type="button"
+                  key={ drink.idDrink }
                   data-testid={ `${index}-recipe-card` }
                   className="h-54 flex grid
                   w-48 m-3 rounded overflow-hidden shadow-lg"
+                  onClick={ () => history.push(`/drinks/${drink.idDrink}`) }
                 >
                   <img
                     className="w-full h-40 flex"
@@ -69,7 +78,7 @@ function Items({ page }) {
                   >
                     {drink.strDrink}
                   </p>
-                </div>
+                </button>
               )))}
         </div>
       );
