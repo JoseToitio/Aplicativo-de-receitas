@@ -94,7 +94,16 @@ function DetailsMeals() {
               ))}
             </div>
           </div>
-          <button type="button" data-testid="start-recipe-btn">Start Recipe</button>
+          <footer>
+            <button
+              type="button"
+              data-testid="start-recipe-btn"
+              className="start-recipe"
+            >
+              Start Recipe
+
+            </button>
+          </footer>
         </div>
       ))}
 

@@ -47,7 +47,7 @@ function DetailsMeals() {
   return (
     <div>
       {console.log(recomendacao)}
-      {itemDetail.map((item, index) => (
+      {itemDetail.map((item) => (
         <div key={ item.idDrink }>
           <img src={ item.strDrinkThumb } alt="" data-testid="recipe-photo" />
           <h1 data-testid="recipe-title">{ item.strDrink}</h1>
@@ -74,8 +74,34 @@ function DetailsMeals() {
           {pathname.includes('foods')
        && <a href="*" data-testid="video">Video</a> }
           <h3>Receitas Recomendadas</h3>
-          <div data-testid={ `${index}-recomendation-card` } />
-          <button type="button" data-testid="start-recipe-btn">Start Recipe</button>
+          <div className="carousel-inner relative w-full overflow-hidden">
+            {recomendacao.map((r, index) => (
+              <div
+                key={ r.idMeals }
+                data-testid={ `${index}-recomendation-card` }
+                className="carousel-item active relative float-left w-full"
+              >
+                <img
+                  src={ r.strMealThumb }
+                  alt={ r.strMeal }
+
+                />
+                <p>{r.strCategory}</p>
+                {console.log(r)}
+                <p data-testid={ `${index}-recomendation-title` }>{r.strMeal}</p>
+              </div>
+            ))}
+          </div>
+          <footer>
+            <button
+              type="button"
+              data-testid="start-recipe-btn"
+              className="start-recipe"
+            >
+              Start Recipe
+
+            </button>
+          </footer>
         </div>
       ))}
 
