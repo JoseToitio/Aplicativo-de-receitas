@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import { apiIdMeals } from '../services/apiIdItems';
@@ -10,6 +10,8 @@ function DetailsMeals() {
   const { pathname } = useLocation();
   const [itemDetail, setItemDetail] = useState([]);
   const [recomendacao, setRecomendacao] = useState([]);
+  const [startRecipe, setStartRecipe] = useState('Start Recipe');
+  const history = useHistory();
   const recomendacaoMax = 6;
   const idItem = () => {
     const numsStr = pathname.replace(/[^0-9]/g, '');
@@ -28,6 +30,15 @@ function DetailsMeals() {
     requestApi();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    const getLocalStorage = localStorage.getItem('inProgressRecipes');
+    if (!JSON.parse(getLocalStorage)) {
+      setStartRecipe('Start Recipe');
+    } else if (JSON.parse(getLocalStorage).meals[idItem()]) {
+      setStartRecipe('Continue Recipe');
+    }
+  });
   const arrayIngredients = () => {
     if (itemDetail.length > 0) {
       const max = 15;
@@ -45,8 +56,45 @@ function DetailsMeals() {
       return arrayIngredientsAndMeasures;
     }
   };
-
   const ingredientsAndMeasures = arrayIngredients();
+
+  const handleClick = () => {
+    const ingredients = ingredientsAndMeasures.map((ingredient) => (
+      ingredient === ' - ' ? null : ingredient
+    ));
+    const storageArray = localStorage.getItem('inProgressRecipes');
+    const a = JSON.parse(storageArray);
+    if (!a) {
+      localStorage
+        .setItem('inProgressRecipes',
+          JSON.stringify({
+            meals:
+          {
+            [idItem()]: ingredients,
+          } }));
+    } else if (!a.meals) {
+      localStorage
+        .setItem('inProgressRecipes',
+          JSON.stringify({
+            ...a,
+            meals:
+            {
+              [idItem()]: ingredients,
+            } }));
+    } else {
+      localStorage
+        .setItem('inProgressRecipes',
+          JSON.stringify({
+            ...a,
+            meals:
+            {
+              ...a.meals,
+              [idItem()]: ingredients,
+            } }));
+    }
+    history.push(`/foods/${idItem()}/in-progress`);
+  };
+
   return (
     <div>
       {itemDetail.map((item) => (
@@ -91,7 +139,6 @@ function DetailsMeals() {
 
                   />
                   <p>{r.strAlcoholic}</p>
-                  {console.log(index)}
                   <p data-testid={ `${index}-recomendation-title` }>{r.strDrink}</p>
                 </div>
               ))}
@@ -102,8 +149,9 @@ function DetailsMeals() {
               type="button"
               data-testid="start-recipe-btn"
               className="start-recipe"
+              onClick={ handleClick }
             >
-              Start Recipe
+              {startRecipe}
 
             </button>
           </footer>
