@@ -32,6 +32,7 @@ function DetailsMeals() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     const getLocalStorage = localStorage.getItem('inProgressRecipes');
     if (!JSON.parse(getLocalStorage)) {
