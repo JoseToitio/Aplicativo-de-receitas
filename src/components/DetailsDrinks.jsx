@@ -1,3 +1,4 @@
+import clipboardCopy from 'clipboard-copy';
 import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
@@ -9,9 +10,11 @@ function DetailsMeals() {
   const { pathname } = useLocation();
   const [itemDetail, setItemDetail] = useState([]);
   const [recomendacao, setRecomendacao] = useState([]);
-  const [startRecipe, setStartRecipe] = useState('Start Recipe');
+  const [startRecipe, setStartRecipe] = useState('');
+  const [buttonCopie, setButtonCopie] = useState('');
   const history = useHistory();
   const recomendacaoMax = 6;
+  const maxMensage = 2000;
   const idItem = () => {
     const numsStr = pathname.replace(/[^0-9]/g, '');
     return numsStr;
@@ -31,6 +34,8 @@ function DetailsMeals() {
   useEffect(() => {
     const getLocalStorage = localStorage.getItem('inProgressRecipes');
     if (!JSON.parse(getLocalStorage)) {
+      setStartRecipe('Start Recipe');
+    } else if (!JSON.parse(getLocalStorage).cocktails) {
       setStartRecipe('Start Recipe');
     } else if (JSON.parse(getLocalStorage).cocktails[idItem()]) {
       setStartRecipe('Continue Recipe');
@@ -98,8 +103,19 @@ function DetailsMeals() {
         <div key={ item.idDrink }>
           <img src={ item.strDrinkThumb } alt="" data-testid="recipe-photo" />
           <h1 data-testid="recipe-title">{ item.strDrink}</h1>
-          <button data-testid="share-btn" type="button">
+          <button
+            data-testid="share-btn"
+            type="button"
+            onClick={ () => {
+              clipboardCopy(`http://localhost:3000/drinks/${idItem()}`);
+              setButtonCopie('Link copied!');
+              setTimeout(() => {
+                setButtonCopie('');
+              }, maxMensage);
+            } }
+          >
             <img src={ shareIcon } alt="share" />
+            {buttonCopie}
           </button>
           <button data-testid="favorite-btn" type="button">
             <img src={ whiteHeartIcon } alt="share" />
