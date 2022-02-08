@@ -42,11 +42,45 @@ function DetailsMeals() {
       return arrayIngredientsAndMeasures;
     }
   };
-
   const ingredientsAndMeasures = arrayIngredients();
+  const handleClick = () => {
+    const ingredients = ingredientsAndMeasures.map((ingredient) => (
+      ingredient === ' - ' ? null : ingredient
+    ));
+    const storageArray = localStorage.getItem('inProgressRecipes');
+    const a = JSON.parse(storageArray);
+    if (!a) {
+      localStorage
+        .setItem('inProgressRecipes',
+          JSON.stringify({
+            cocktails:
+          {
+            [idItem()]: ingredients,
+          } }));
+    } else if (!a.cocktails) {
+      localStorage
+        .setItem('inProgressRecipes',
+          JSON.stringify({
+            ...a,
+            cocktails:
+            {
+              [idItem()]: ingredients,
+            } }));
+    } else {
+      localStorage
+        .setItem('inProgressRecipes',
+          JSON.stringify({
+            ...a,
+            cocktails:
+            {
+              ...a.cocktails,
+              [idItem()]: ingredients,
+            } }));
+    }
+  };
+
   return (
     <div>
-      {console.log(recomendacao)}
       {itemDetail.map((item) => (
         <div key={ item.idDrink }>
           <img src={ item.strDrinkThumb } alt="" data-testid="recipe-photo" />
@@ -87,7 +121,6 @@ function DetailsMeals() {
 
                 />
                 <p>{r.strCategory}</p>
-                {console.log(r)}
                 <p data-testid={ `${index}-recomendation-title` }>{r.strMeal}</p>
               </div>
             ))}
@@ -97,6 +130,7 @@ function DetailsMeals() {
               type="button"
               data-testid="start-recipe-btn"
               className="start-recipe"
+              onClick={ handleClick }
             >
               Start Recipe
 

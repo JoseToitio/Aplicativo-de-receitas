@@ -43,12 +43,48 @@ function DetailsMeals() {
       return arrayIngredientsAndMeasures;
     }
   };
-
   const ingredientsAndMeasures = arrayIngredients();
+
+  const handleClick = () => {
+    const ingredients = ingredientsAndMeasures.map((ingredient) => (
+      ingredient === ' - ' ? null : ingredient
+    ));
+    const storageArray = localStorage.getItem('inProgressRecipes');
+    const a = JSON.parse(storageArray);
+    if (!a) {
+      localStorage
+        .setItem('inProgressRecipes',
+          JSON.stringify({
+            meals:
+          {
+            [idItem()]: ingredients,
+          } }));
+    } else if (!a.meals) {
+      localStorage
+        .setItem('inProgressRecipes',
+          JSON.stringify({
+            ...a,
+            meals:
+            {
+              [idItem()]: ingredients,
+            } }));
+    } else {
+      localStorage
+        .setItem('inProgressRecipes',
+          JSON.stringify({
+            ...a,
+            meals:
+            {
+              ...a.meals,
+              [idItem()]: ingredients,
+            } }));
+    }
+  };
+
   return (
     <div>
       {itemDetail.map((item) => (
-        <div key={ item.idMeals }>
+        <div key={ item.idMeal }>
           <img src={ item.strMealThumb } alt="" data-testid="recipe-photo" />
           <h1 data-testid="recipe-title">{item.strMeal }</h1>
           <button data-testid="share-btn" type="button">
@@ -88,7 +124,6 @@ function DetailsMeals() {
 
                   />
                   <p>{r.strAlcoholic}</p>
-                  {console.log(index)}
                   <p data-testid={ `${index}-recomendation-title` }>{r.strDrink}</p>
                 </div>
               ))}
@@ -99,6 +134,7 @@ function DetailsMeals() {
               type="button"
               data-testid="start-recipe-btn"
               className="start-recipe"
+              onClick={ handleClick }
             >
               Start Recipe
 
