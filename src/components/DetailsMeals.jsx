@@ -141,7 +141,7 @@ function DetailsMeals() {
           <h3>Instructions</h3>
           <p data-testid="instructions">{item.strInstructions}</p>
           {pathname.includes('foods')
-       && <a href={ item.strYoutube } data-testid="video">Video</a> }
+        && <a href={ item.strYoutube } data-testid="video">Video</a> }
           <h3>Receitas Recomendadas</h3>
           <div className="carousel slide relative">
             <div className="carousel-inner relative w-full overflow-hidden">
