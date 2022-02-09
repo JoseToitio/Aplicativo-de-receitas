@@ -19,7 +19,6 @@ export default function GlobalProvider({ children }) {
   const [ingredients, setIngredients] = useState([]);
   const [drinkIngredients, setDrinkIngredients] = useState([]);
 
-
   return (
     <GlobalContext.Provider
       value={ {

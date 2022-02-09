@@ -52,8 +52,8 @@ export const listAreas = async () => {
 export const apiArea = async (area) => {
   const result = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`)
     .then((r) => r.json());
-  
-  return result
+
+  return result;
 };
 
 export const listIngredient = async () => {
