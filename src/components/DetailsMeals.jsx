@@ -3,6 +3,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import clipboardCopy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { apiIdMeals } from '../services/apiIdItems';
 import Loading from './Loading';
 import { apiRecomendacaoDrinks } from '../services/apiRecomendacao';
@@ -13,6 +14,7 @@ function DetailsMeals() {
   const [recomendacao, setRecomendacao] = useState([]);
   const [startRecipe, setStartRecipe] = useState('');
   const [buttonCopie, setButtonCopie] = useState('');
+  const [favorite, setFavorite] = useState(false);
   const history = useHistory();
   const recomendacaoMax = 6;
   const maxMensage = 2000;
@@ -45,6 +47,15 @@ function DetailsMeals() {
       setStartRecipe('Continue Recipe');
     }
   });
+
+  useEffect(() => {
+    const getFavoriteRecipes = localStorage.getItem('favoriteRecipes');
+    const arrayFavoriteRecipes = JSON.parse(getFavoriteRecipes);
+    if (arrayFavoriteRecipes) {
+      arrayFavoriteRecipes.find((item) => item.id === idItem() && setFavorite(true));
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const arrayIngredients = () => {
     if (itemDetail.length > 0) {
       const max = 15;
@@ -100,6 +111,42 @@ function DetailsMeals() {
     }
     history.push(`/foods/${idItem()}/in-progress`);
   };
+  const favoriteClick = () => {
+    const storageFavorite = localStorage.getItem('favoriteRecipes');
+    const favoritesArray = JSON.parse(storageFavorite);
+    if (favorite) {
+      const removeItem = favoritesArray.filter((item) => item.id !== idItem());
+      localStorage.setItem('favoriteRecipes', JSON.stringify(removeItem));
+      setFavorite(false);
+    } else {
+      itemDetail.map((item) => {
+        if (!favoritesArray) {
+          return localStorage.setItem('favoriteRecipes', JSON.stringify([
+            {
+              id: item.idMeal,
+              type: 'food',
+              nationality: item.strArea,
+              category: item.strCategory,
+              alcoholicOrNot: '',
+              name: item.strMeal,
+              image: item.strMealThumb,
+            }]));
+        }
+        return localStorage.setItem('favoriteRecipes', JSON.stringify([
+          ...favoritesArray,
+          {
+            id: item.idMeal,
+            type: 'food',
+            nationality: item.strArea,
+            category: item.strCategory,
+            alcoholicOrNot: '',
+            name: item.strMeal,
+            image: item.strMealThumb,
+          }]));
+      });
+      setFavorite(true);
+    }
+  };
 
   return (
     <div>
@@ -123,8 +170,13 @@ function DetailsMeals() {
             <img src={ shareIcon } alt="share" />
             {buttonCopie}
           </button>
-          <button data-testid="favorite-btn" type="button">
-            <img src={ whiteHeartIcon } alt="share" />
+          <button
+            data-testid="favorite-btn"
+            type="button"
+            src={ !favorite ? whiteHeartIcon : blackHeartIcon }
+            onClick={ favoriteClick }
+          >
+            <img src={ !favorite ? whiteHeartIcon : blackHeartIcon } alt="share" />
           </button>
           <p data-testid="recipe-category">{item.strCategory}</p>
           <h3>Ingredients</h3>
