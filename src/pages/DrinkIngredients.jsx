@@ -1,17 +1,26 @@
 import React, { useContext, useEffect } from 'react';
+import { useHistory } from 'react-router';
 import BottomMenu from '../components/BottomMenu';
 import Header from '../components/Header';
 import GlobalContext from '../context/GlobalContext';
-import { listDrinkIngredient } from '../services/apiDrinks';
+import { apiDrinkIngrediente, listDrinkIngredient } from '../services/apiDrinks';
 
 export default function DrinkIngredients() {
+  const history = useHistory();
   const { drinkIngredients, setDrinkIngredients,
-    setIngredients } = useContext(GlobalContext);
+    setIngredients, setValueApiDrinks } = useContext(GlobalContext);
 
   useEffect(() => {
     listDrinkIngredient().then((r) => setDrinkIngredients(r.drinks))
       .then(() => setIngredients([]));
   }, []);
+
+  const handleClick = async (ingredient) => {
+    console.log(ingredient);
+    await apiDrinkIngrediente(ingredient).then((r) => setValueApiDrinks(r.drinks))
+      .then(() => history.push('/drinks'))
+      .catch(() => global.alert(errorMessage));
+  };
 
   const max = 12;
 
@@ -28,7 +37,7 @@ export default function DrinkIngredients() {
               data-testid={ `${i}-ingredient-card` }
               className="h-54 flex grid
               w-48 m-3 rounded overflow-hidden shadow-lg"
-              // onClick={ () => history.push(`/drinks/${drink.idMeal}`) }
+              onClick={ () => handleClick(drink.strIngredient1) }
             >
               <img
                 className="w-full h-40 flex"
