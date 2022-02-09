@@ -11,7 +11,7 @@ export default function MainFoods() {
     <main>
       <Header name="Foods" showIcon />
       {categoryFood === 'All'
-        ? <Items page="Foods" />
+        ? <Items page="Foods" show />
         : <ItemsCategory page="Foods" />}
       <BottomMenu />
     </main>

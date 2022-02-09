@@ -41,3 +41,17 @@ export const foodSurprise = async () => {
 
   return result;
 };
+
+export const listAreas = async () => {
+  const result = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list')
+    .then((r) => r.json());
+
+  return result;
+};
+
+export const apiArea = async (area) => {
+  const result = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`)
+    .then((r) => r.json());
+
+  return result;
+};

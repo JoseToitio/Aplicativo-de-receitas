@@ -11,7 +11,7 @@ export default function MainDrinks() {
     <main>
       <Header name="Drinks" showIcon />
       {categoryDrink === 'All'
-        ? <Items page="Drinks" />
+        ? <Items page="Drinks" show />
         : <ItemsCategory page="Drinks" />}
       <BottomMenu />
     </main>

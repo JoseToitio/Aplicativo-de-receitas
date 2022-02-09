@@ -8,7 +8,7 @@ import { allDrinks } from '../services/apiDrinks';
 import RenderInput from './RenderInput';
 import Loading from './Loading';
 
-function Items({ page }) {
+function Items({ page, show }) {
   const { valueApiMeals, renderFoods, renderDrinks,
     setRenderFoods, setRenderDrinks, ValueApiDrinks,
   } = useContext(GlobalContext);
@@ -87,7 +87,7 @@ function Items({ page }) {
 
   return (
     <div>
-      <CategoriesBtn page={ page } />
+      { show && <CategoriesBtn page={ page } /> }
       { (valueApiMeals.length === 0 && ValueApiDrinks.length === 0)
         ? renderAll()
         : <RenderInput page={ page } /> }
@@ -96,5 +96,6 @@ function Items({ page }) {
 }
 Items.propTypes = {
   page: PropTypes.string.isRequired,
+  show: PropTypes.bool.isRequired,
 };
 export default Items;
