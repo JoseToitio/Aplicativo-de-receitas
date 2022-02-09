@@ -15,7 +15,15 @@ export default function RenderInput({ page }) {
       { valueApiMeals.length === 1
         ? history.push(`/foods/${valueApiMeals[0].idMeal}`)
         : filterMaxMeals.map((m, index) => (
-          <div key={ m.idMeal } data-testid={ `${index}-recipe-card` }>
+          <button
+            type="button"
+            key={ m.idMeal }
+            data-testid={ `${index}-recipe-card` }
+            className="h-54 flex grid
+            w-48 m-3 rounded overflow-hidden shadow-lg"
+            onClick={ () => history.push(`/foods/${m.idMeal}`) }
+
+          >
             <img
               src={ m.strMealThumb }
               alt={ m.strMeal }
@@ -29,7 +37,7 @@ export default function RenderInput({ page }) {
             >
               {m.strMeal}
             </p>
-          </div>
+          </button>
         )) }
     </div>
   );
@@ -39,11 +47,13 @@ export default function RenderInput({ page }) {
       {ValueApiDrinks.length === 1
         ? history.push(`/drinks/${ValueApiDrinks[0].idDrink}`)
         : filterMaxDrinks.map((d, index) => (
-          <div
+          <button
+            type="button"
             key={ d.idDrink }
             data-testid={ `${index}-recipe-card` }
             className="h-54 flex grid
                 w-48 m-3 rounded overflow-hidden shadow-lg"
+            onClick={ () => history.push(`/drinks/${d.idDrink}`) }
           >
             <img
               className="w-full h-40 flex"
@@ -57,7 +67,7 @@ export default function RenderInput({ page }) {
             >
               {d.strDrink}
             </p>
-          </div>
+          </button>
         ))}
     </div>
   );
