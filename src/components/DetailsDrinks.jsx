@@ -1,5 +1,6 @@
+import clipboardCopy from 'clipboard-copy';
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import { apiIdDrinks } from '../services/apiIdItems';
@@ -9,7 +10,11 @@ function DetailsMeals() {
   const { pathname } = useLocation();
   const [itemDetail, setItemDetail] = useState([]);
   const [recomendacao, setRecomendacao] = useState([]);
+  const [startRecipe, setStartRecipe] = useState('');
+  const [buttonCopie, setButtonCopie] = useState('');
+  const history = useHistory();
   const recomendacaoMax = 6;
+  const maxMensage = 2000;
   const idItem = () => {
     const numsStr = pathname.replace(/[^0-9]/g, '');
     return numsStr;
@@ -25,6 +30,19 @@ function DetailsMeals() {
     requestApi();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    const getLocalStorage = localStorage.getItem('inProgressRecipes');
+    if (!JSON.parse(getLocalStorage)) {
+      setStartRecipe('Start Recipe');
+    } else if (!JSON.parse(getLocalStorage).cocktails) {
+      setStartRecipe('Start Recipe');
+    } else if (JSON.parse(getLocalStorage).cocktails[idItem()]) {
+      setStartRecipe('Continue Recipe');
+    }
+  });
+
   const arrayIngredients = () => {
     if (itemDetail.length > 0) {
       const max = 15;
@@ -42,17 +60,63 @@ function DetailsMeals() {
       return arrayIngredientsAndMeasures;
     }
   };
-
   const ingredientsAndMeasures = arrayIngredients();
+  const handleClick = () => {
+    const ingredients = ingredientsAndMeasures.map((ingredient) => (
+      ingredient === ' - ' ? null : ingredient
+    ));
+    const storageArray = localStorage.getItem('inProgressRecipes');
+    const a = JSON.parse(storageArray);
+    if (!a) {
+      localStorage
+        .setItem('inProgressRecipes',
+          JSON.stringify({
+            cocktails:
+          {
+            [idItem()]: ingredients,
+          } }));
+    } else if (!a.cocktails) {
+      localStorage
+        .setItem('inProgressRecipes',
+          JSON.stringify({
+            ...a,
+            cocktails:
+            {
+              [idItem()]: ingredients,
+            } }));
+    } else {
+      localStorage
+        .setItem('inProgressRecipes',
+          JSON.stringify({
+            ...a,
+            cocktails:
+            {
+              ...a.cocktails,
+              [idItem()]: ingredients,
+            } }));
+    }
+    history.push(`/drinks/${idItem()}/in-progress`);
+  };
+
   return (
     <div>
-      {console.log(recomendacao)}
       {itemDetail.map((item) => (
         <div key={ item.idDrink }>
           <img src={ item.strDrinkThumb } alt="" data-testid="recipe-photo" />
           <h1 data-testid="recipe-title">{ item.strDrink}</h1>
-          <button data-testid="share-btn" type="button">
+          <button
+            data-testid="share-btn"
+            type="button"
+            onClick={ () => {
+              clipboardCopy(`http://localhost:3000/drinks/${idItem()}`);
+              setButtonCopie('Link copied!');
+              setTimeout(() => {
+                setButtonCopie('');
+              }, maxMensage);
+            } }
+          >
             <img src={ shareIcon } alt="share" />
+            {buttonCopie}
           </button>
           <button data-testid="favorite-btn" type="button">
             <img src={ whiteHeartIcon } alt="share" />
@@ -87,7 +151,6 @@ function DetailsMeals() {
 
                 />
                 <p>{r.strCategory}</p>
-                {console.log(r)}
                 <p data-testid={ `${index}-recomendation-title` }>{r.strMeal}</p>
               </div>
             ))}
@@ -97,8 +160,9 @@ function DetailsMeals() {
               type="button"
               data-testid="start-recipe-btn"
               className="start-recipe"
+              onClick={ handleClick }
             >
-              Start Recipe
+              {startRecipe}
 
             </button>
           </footer>

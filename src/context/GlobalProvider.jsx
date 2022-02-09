@@ -16,6 +16,9 @@ export default function GlobalProvider({ children }) {
   const [areas, setAreas] = useState([]);
   const [nationalitySel, setNationalitySel] = useState('All');
   const [nationalityArr, setNationalityArr] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
+  const [drinkIngredients, setDrinkIngredients] = useState([]);
+
 
   return (
     <GlobalContext.Provider
@@ -46,6 +49,10 @@ export default function GlobalProvider({ children }) {
         setNationalitySel,
         nationalityArr,
         setNationalityArr,
+        ingredients,
+        setIngredients,
+        drinkIngredients,
+        setDrinkIngredients,
       } }
     >
       { children }
