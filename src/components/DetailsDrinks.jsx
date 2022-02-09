@@ -187,17 +187,20 @@ function DetailsMeals() {
           {pathname.includes('foods')
         && <a href="*" data-testid="video">Video</a> }
           <h3>Receitas Recomendadas</h3>
-          <div className="carousel-inner relative w-full overflow-hidden">
+          <div
+            className="flex h-64 w-100
+            items-center overflow-x-auto"
+          >
             {recomendacao.map((r, index) => (
               <div
                 key={ r.idMeals }
                 data-testid={ `${index}-recomendation-card` }
-                className="carousel-item active relative float-left w-full"
+                className="w-48 flex-none mx-3"
               >
                 <img
                   src={ r.strMealThumb }
                   alt={ r.strMeal }
-
+                  className="h-40"
                 />
                 <p>{r.strCategory}</p>
                 <p data-testid={ `${index}-recomendation-title` }>{r.strMeal}</p>

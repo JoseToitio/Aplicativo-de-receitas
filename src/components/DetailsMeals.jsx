@@ -195,24 +195,26 @@ function DetailsMeals() {
           {pathname.includes('foods')
         && <a href={ item.strYoutube } data-testid="video">Video</a> }
           <h3>Receitas Recomendadas</h3>
-          <div className="carousel slide relative">
-            <div className="carousel-inner relative w-full overflow-hidden">
-              {recomendacao.map((r, index) => (
-                <div
-                  key={ r.idDrinks }
-                  data-testid={ `${index}-recomendation-card` }
-                  className="carousel-item active relative float-left w-full"
-                >
-                  <img
-                    src={ r.strDrinkThumb }
-                    alt={ r.strDrink }
+          <div
+            className="flex h-64 w-100
+            items-center overflow-x-auto"
+          >
+            {recomendacao.map((r, index) => (
+              <div
+                key={ r.idDrinks }
+                data-testid={ `${index}-recomendation-card` }
+                className="w-48 flex-none mx-3"
+              >
+                <img
+                  src={ r.strDrinkThumb }
+                  alt={ r.strDrink }
+                  className="h-40"
 
-                  />
-                  <p>{r.strAlcoholic}</p>
-                  <p data-testid={ `${index}-recomendation-title` }>{r.strDrink}</p>
-                </div>
-              ))}
-            </div>
+                />
+                <p>{r.strAlcoholic}</p>
+                <p data-testid={ `${index}-recomendation-title` }>{r.strDrink}</p>
+              </div>
+            ))}
           </div>
           <footer>
             <button
