@@ -65,7 +65,7 @@ function FavoriteRecipesItems() {
           Drink
         </button>
       </div>
-      {recipes.map((recipe, index) => (
+      {recipes && recipes.map((recipe, index) => (
         <div
           key={ recipe.id }
           className="flex flex-wrap"
