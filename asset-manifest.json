@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/Aplicativo-de-receitas/static/css/main.4282cc3a.css",
+    "main.js": "/Aplicativo-de-receitas/static/js/main.fe831d80.js",
+    "static/media/exploreIcon.svg": "/Aplicativo-de-receitas/static/media/exploreIcon.7cbf9489ff7f6a05ac1079491d47a12f.svg",
+    "static/media/mealIcon.svg": "/Aplicativo-de-receitas/static/media/mealIcon.93ccfec969f850b76b23d712c5364a37.svg",
+    "static/media/shareIcon.svg": "/Aplicativo-de-receitas/static/media/shareIcon.0162aa71578ef591eb531dcb30801f1f.svg",
+    "static/media/profileIcon.svg": "/Aplicativo-de-receitas/static/media/profileIcon.27392b79560b07e515b2115585e4fc34.svg",
+    "static/media/whiteHeartIcon.svg": "/Aplicativo-de-receitas/static/media/whiteHeartIcon.6690d94e688d445712c855c7ded7389b.svg",
+    "static/media/searchIcon.svg": "/Aplicativo-de-receitas/static/media/searchIcon.361eec656b197de33ae9ee000c69601a.svg",
+    "static/media/blackHeartIcon.svg": "/Aplicativo-de-receitas/static/media/blackHeartIcon.f4563148a53687f9befe2ce741dfdedb.svg",
+    "static/media/drinkIcon.svg": "/Aplicativo-de-receitas/static/media/drinkIcon.1893b8edb4ab2acd4419bcc4046f84b9.svg",
+    "index.html": "/Aplicativo-de-receitas/index.html",
+    "main.4282cc3a.css.map": "/Aplicativo-de-receitas/static/css/main.4282cc3a.css.map",
+    "main.fe831d80.js.map": "/Aplicativo-de-receitas/static/js/main.fe831d80.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4282cc3a.css",
+    "static/js/main.fe831d80.js"
+  ]
+}
